@@ -1,0 +1,9 @@
+export { default as Signin } from "./signin/Signin";
+export { default as StudentDashboard } from "./student/Dashboard";
+export { default as TeacherDashboard } from "./teacher/Dashboard";
+export { default as TeacherManager } from "./teacher/Manager";
+export { default as AdminDashboard } from "./admin/board/Dashboard";
+export { default as AdminManager } from "./admin/manager/Manager";
+export { default as Missing } from "./Missing";
+export { default as AdminClass } from "./class/AdminClass";
+export { default as TeacherClass } from "./class/TeacherClass";
