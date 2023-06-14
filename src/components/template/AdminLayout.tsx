@@ -15,7 +15,7 @@ const AdminLayout = () => {
     ];
 
     return (
-        <div>
+        <div className="w-screen">
             <Header extraMenu={adminNav} />
             <div className="w-10/12 m-auto">
                 <Outlet />

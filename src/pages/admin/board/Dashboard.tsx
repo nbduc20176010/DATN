@@ -25,7 +25,7 @@ const AdminDashboard = () => {
 
     return (
         <Layout>
-            <Content style={{ padding: "24px", minHeight: 280 }}>
+            <Content style={{ padding: "24px", minHeight: 280, overflowX: 'scroll' }}>
                 <Custombreadcrumb breads={["admin", "board"]} />
                 {loading ? (
                     <Spin />
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
                         >
                             Add schedule <PlusCircleOutlined />
                         </Button>
-                        <div className="m-auto grid grid-cols-7">
+                        <div className="m-auto grid grid-cols-7  min-w-[800px]">
                             {schedules?.map((item) => (
                                 <div
                                     className="flex flex-col first:border-l-2 min-h-[300px]"
@@ -52,7 +52,7 @@ const AdminDashboard = () => {
                                         <Text strong>{item.label}</Text>
                                     </div>
                                     <div className="flex flex-col items-center h-full bg-white pt-2 gap-2">
-                                        {item.class.map((subclass) => (
+                                        {item.class?.map((subclass) => (
                                             <div>
                                                 {subclass.className} -{" "}
                                                 {subclass.room}

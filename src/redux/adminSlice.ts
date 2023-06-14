@@ -178,7 +178,7 @@ export const adminSlice = createSlice({
         });
         builder.addCase(deleteTeacher.fulfilled, (state, action) => {
             const newDatas = state.datas.filter(
-                (item: any) => item._id !== action.payload
+                (item: any) => item._id !== action.payload.id
             );
             state.datas = newDatas;
             notification.success({
@@ -211,7 +211,7 @@ export const adminSlice = createSlice({
             );
             state.datas = newDatas;
             notification.success({
-                message: "Edited success!",
+                message: "Deleted success!",
                 duration: 2,
             });
         });

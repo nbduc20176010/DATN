@@ -13,7 +13,6 @@ const nav_container = [
     "text-lg",
     "font-semibold",
     "tracking-wide",
-    "w-10/12",
 ];
 
 const Header = ({ extraMenu }: any) => {

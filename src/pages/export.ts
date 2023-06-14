@@ -6,4 +6,4 @@ export { default as AdminDashboard } from "./admin/board/Dashboard";
 export { default as AdminManager } from "./admin/manager/Manager";
 export { default as Missing } from "./Missing";
 export { default as AdminClass } from "./class/AdminClass";
-export { default as TeacherClass } from "./class/TeacherClass";
+export { default as TeacherClass } from "./teacher/TeacherClassList";
