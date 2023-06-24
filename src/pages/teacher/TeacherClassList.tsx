@@ -17,7 +17,7 @@ const TeacherClassList = () => {
   }, [dispatch, accessToken]);
 
   return (
-    <div className=" w-[1024px] m-auto">
+    <div className="m-auto">
       <Layout className="bg-white">
         <Content className="p-10 min-h-400">
           <CustomTable data={datas} columns="class" />

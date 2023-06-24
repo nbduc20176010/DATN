@@ -77,6 +77,7 @@ export default function AddStudent({
                         <Button
                             className="m-2"
                             shape="round"
+                            type="primary"
                             onClick={handleAddStudent}
                         >
                             Add

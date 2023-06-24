@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { Button, Form, Layout, Menu, MenuProps } from "antd";
 import {
-    CalendarOutlined,
     HomeOutlined,
     TeamOutlined,
     UserOutlined,
@@ -45,11 +44,6 @@ const AdminManager = () => {
             label: "Classes",
             key: "class",
             icon: <HomeOutlined />,
-        },
-        {
-            label: "Calendar",
-            key: "calendar",
-            icon: <CalendarOutlined />,
         },
     ];
 
@@ -100,7 +94,7 @@ const AdminManager = () => {
                 <Layout
                     style={{
                         padding: "24px 50px",
-                        width: "1024px",
+                        minWidth: "1024px",
                         margin: "auto",
                     }}
                 >

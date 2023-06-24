@@ -150,7 +150,7 @@ const CustomTable = ({ data, columns, form }: any) => {
       title: "Teacher",
       dataIndex: "teacher",
       key: "teacher",
-      render: (_: any, { teacher }: any) => teacher.fullName,
+      render: (_: any, { teacher }: any) => teacher?.fullName,
     },
     {
       title: "Detail",

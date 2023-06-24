@@ -49,7 +49,7 @@ const TeacherManager = (props: Props) => {
         <Layout
           style={{
             padding: "24px 50px",
-            width: "1024px",
+            minWidth: "1024px",
             margin: "auto",
           }}
         >
