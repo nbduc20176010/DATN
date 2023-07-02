@@ -6,7 +6,6 @@ import { useAppDispatch } from "../../redux/store";
 import { signOut } from "../../redux/commonSlice";
 import { LogoutOutlined } from "@ant-design/icons";
 
-
 const nav_container = [
   "m-auto",
   "flex",
@@ -17,7 +16,13 @@ const nav_container = [
   "tracking-wide",
 ];
 
-const Header = ({ extraMenu, currentUser }: any) => {
+const Header = ({
+  extraMenu,
+  currentUser,
+}: {
+  extraMenu?: any[];
+  currentUser: any;
+}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -47,9 +52,9 @@ const Header = ({ extraMenu, currentUser }: any) => {
       <div className={nav_container.join(" ")}>
         <div className="flex gap-14">
           <div>Home Icon</div>
-          {extraMenu.length && (
+          {extraMenu?.length && (
             <div className="flex gap-4">
-              {extraMenu.map((item: any) => (
+              {extraMenu?.map((item: any) => (
                 <div key={item.label} className="hover:underline">
                   <Link to={item.path}>{item.label}</Link>
                 </div>
@@ -83,11 +88,6 @@ const Header = ({ extraMenu, currentUser }: any) => {
             <Link to="/signin">
               <Button style={{ fontWeight: 600 }} shape="round">
                 Sign In
-              </Button>
-            </Link>
-            <Link to="signup">
-              <Button shape="round" style={{ fontWeight: 600 }}>
-                Sign Up
               </Button>
             </Link>
           </div>

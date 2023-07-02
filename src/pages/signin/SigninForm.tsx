@@ -4,7 +4,7 @@ import { Button, Form, Input, Space, Typography } from "antd";
 import { UserOutlined, KeyOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { resetLoading, signIn } from "../../redux/commonSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -40,7 +40,11 @@ const SigninForm = () => {
     <>
       <div className="w-full text-center mb-5">
         <div className="absolute">
-          <Button shape="round" className="font-semibold">
+          <Button
+            onClick={() => navigate("/")}
+            shape="round"
+            className="font-semibold"
+          >
             Back
           </Button>
         </div>
@@ -70,7 +74,9 @@ const SigninForm = () => {
             >
               Login
             </Button>
-            <Button danger>Cancel</Button>
+            <Button onClick={() => navigate("/")} danger>
+              Cancel
+            </Button>
           </Space>
         </div>
       </Form>

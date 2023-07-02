@@ -151,10 +151,17 @@ const TeacherClass = () => {
                   }
                   title={item.fullName}
                   description={
-                    <div className="flex gap-4">
-                      <p>Email: {item.email}</p>
-                      <p>Phone number: {item.phoneNumber}</p>
-                    </div>
+                    <>
+                      <div className="flex gap-4">
+                        <p>Email: {item.email}</p>
+                        <p>Phone number: {item.phoneNumber}</p>
+                      </div>
+                      <div className="flex gap-4">
+                        <p>Absent: {item.absent}</p>
+                        <p>Mid score: {item.midScore}</p>
+                        <p>Final score: {item.finalScore}</p>
+                      </div>
+                    </>
                   }
                 />
               </List.Item>

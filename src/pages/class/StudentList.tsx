@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Avatar, Button, List, Popconfirm, Typography } from "antd";
+import {
+  Avatar,
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  List,
+  Modal,
+  Popconfirm,
+  Space,
+  Typography,
+} from "antd";
 import AddStudent from "./AddStudent";
 import { iStudent } from "../../dtos/pageDto";
 import { useAppDispatch } from "../../redux/store";
-import { editClass } from "../../redux/adminSlice";
+import { editClass, submitScore } from "../../redux/adminSlice";
 
 const { Title } = Typography;
 
@@ -15,6 +26,8 @@ export default function StudentList({
   id: string;
   students: iStudent[];
 }) {
+  const [scoreModalOpened, setScoreModalOpened] = useState(false);
+  const [form] = Form.useForm();
   const accessToken = localStorage.getItem("token");
   const dispatch = useAppDispatch();
   const handleDeleteStudent = (studentId: string) => {
@@ -37,12 +50,26 @@ export default function StudentList({
     );
   };
 
+  const handleCloseModal = () => setScoreModalOpened(false);
+
+  const handleOpenModal = (values: any) => {
+    setScoreModalOpened(true);
+    form.setFieldsValue(values);
+  };
+
+  const handleSubmitForm = (values: any) => {
+    dispatch(submitScore({ id, values, token: accessToken }));
+    handleCloseModal();
+  };
+
   return (
     <div className="flex flex-col mt-10 gap-5">
       <div className="flex gap-4">
         <AddStudent id={id} classStudents={students} />
         <div>
-          <Button danger shape="round" onClick={handleClearClass}>Clear students</Button>
+          <Button danger shape="round" onClick={handleClearClass}>
+            Clear students
+          </Button>
         </div>
       </div>
       <div className="bg-gray-100 rounded-lg w-8/12 min-h-[150px] m-auto">
@@ -58,6 +85,13 @@ export default function StudentList({
           renderItem={(item: any) => (
             <List.Item
               actions={[
+                <Button
+                  onClick={() => handleOpenModal(item)}
+                  type="primary"
+                  shape="round"
+                >
+                  Score
+                </Button>,
                 <Popconfirm
                   title="Are you sure?"
                   onConfirm={() => handleDeleteStudent(item._id)}
@@ -75,16 +109,54 @@ export default function StudentList({
                 }
                 title={item.fullName}
                 description={
-                  <div className="flex gap-4">
-                    <p>Email: {item.email}</p>
-                    <p>Phone number: {item.phoneNumber}</p>
-                  </div>
+                  <>
+                    <div>
+                      <p>Email: {item.email}</p>
+                      <p>Phone number: {item.phoneNumber}</p>
+                    </div>
+                    <div className="flex gap-4">
+                      <p>Absent: {item.absent}</p>
+                      <p>Mid score: {item.midScore}</p>
+                      <p>Final score: {item.finalScore}</p>
+                    </div>
+                  </>
                 }
               />
             </List.Item>
           )}
         />
       </div>
+      <Modal
+        destroyOnClose
+        open={scoreModalOpened}
+        footer={null}
+        onCancel={handleCloseModal}
+      >
+        <Form
+          labelCol={{ span: 6 }}
+          preserve={false}
+          labelAlign="left"
+          form={form}
+          className="px-10 pt-10"
+          onFinish={handleSubmitForm}
+        >
+          <Form.Item label="Id" name="_id">
+            <Input disabled />
+          </Form.Item>
+          <Form.Item label="Mid score" name="midScore">
+            <InputNumber className="w-full" min={0} max={100} />
+          </Form.Item>
+          <Form.Item label="Final score" name="finalScore">
+            <InputNumber className="w-full" min={0} max={100} />
+          </Form.Item>
+          <Space size="middle">
+            <Button htmlType="submit" type="primary">
+              Submit
+            </Button>
+            <Button onClick={handleCloseModal}>Cancel</Button>
+          </Space>
+        </Form>
+      </Modal>
     </div>
   );
 }

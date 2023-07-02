@@ -13,6 +13,9 @@ export interface iStudent {
   fullName: string;
   phoneNumber: string;
   email: string;
+  absent: number;
+  midScore: number;
+  finalScore: number;
   image: {
     data: string;
   };

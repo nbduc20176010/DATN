@@ -23,7 +23,11 @@ const AddSchedule = () => {
   const currentClass = Form.useWatch("class", form);
 
   const handleSubmit = (values: any) => {
-    dispatch(addSchedule({ values, token: accessToken }));
+    const newSchedule = {
+      ...values,
+      classId: datas.find((item: any) => item.className === currentClass)._id,
+    };
+    dispatch(addSchedule({ values: newSchedule, token: accessToken }));
     dispatch(triggerForm());
   };
 

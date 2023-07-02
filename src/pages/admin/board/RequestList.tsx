@@ -4,7 +4,12 @@ import { Button, Layout, Menu, MenuProps, Space, Table, Tag } from "antd";
 import Custombreadcrumb from "../../../components/CustomBreadcrumb";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { ColumnsType } from "antd/es/table";
-import { approveRequest, fetchRequests } from "../../../redux/adminSlice";
+import {
+  approveRequest,
+  approveStudentRequest,
+  declineRequest,
+  fetchRequests,
+} from "../../../redux/adminSlice";
 
 const { Content, Sider } = Layout;
 
@@ -34,8 +39,8 @@ const RequestList = (props: Props) => {
       key: "Approved",
     },
     {
-      label: "Deciled",
-      key: "Deciled",
+      label: "Declined",
+      key: "Declined",
     },
     {
       label: "Pending",
@@ -44,7 +49,13 @@ const RequestList = (props: Props) => {
   ];
 
   const handleApproveRequest = (request: any) => {
-    dispatch(approveRequest({ request, token: accessToken }));
+    request.requestFrom === "teacher"
+      ? dispatch(approveRequest({ request, token: accessToken }))
+      : dispatch(approveStudentRequest({ request, token: accessToken }));
+  };
+
+  const handleDecline = (request: any) => {
+    dispatch(declineRequest({ id: request._id, token: accessToken }));
   };
 
   const handleChangeTable = (key: string) => {
@@ -89,7 +100,12 @@ const RequestList = (props: Props) => {
           >
             Approve
           </Button>
-          <Button disabled={record.status !== "Pending"} danger size="small">
+          <Button
+            onClick={() => handleDecline(record)}
+            disabled={record.status !== "Pending"}
+            danger
+            size="small"
+          >
             Decline
           </Button>
         </Space>

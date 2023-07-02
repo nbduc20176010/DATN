@@ -98,8 +98,6 @@ const scheduleSlice = createSlice({
           duration: 2,
         });
       } else {
-        console.log(action.payload);
-        
         const newSchedules = state.schedules?.map((item) =>
           item.label === action.payload.label ? action.payload : item
         );

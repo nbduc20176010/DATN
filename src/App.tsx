@@ -18,6 +18,8 @@ import {
   RequestList,
   TeahcerRequestList,
 } from "./pages/export";
+import Attendance from "./pages/teacher/Attendance";
+import StudentLayout from "./components/template/StudentLayout";
 
 function App() {
   return (
@@ -25,13 +27,16 @@ function App() {
       <Route path="signin" element={<Signin />} />
       {/* student route */}
       <Route element={<RequireAuth />}>
-        <Route path="/" element={<StudentDashboard />} />
+        <Route path="/" element={<StudentLayout />}>
+          <Route path="" element={<StudentDashboard />} />
+        </Route>
         <Route path="teacher" element={<TeacherLayout />}>
           <Route path="" element={<TeacherDashboard />} />
           <Route path="manager" element={<TeacherManager />} />
           <Route path="class" element={<TeacherClassList />} />
           <Route path="class/:id" element={<TeacherClass />} />
           <Route path="request" element={<TeahcerRequestList />} />
+          <Route path="class/:id/attendance" element={<Attendance />} />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route path="" element={<AdminDashboard />} />

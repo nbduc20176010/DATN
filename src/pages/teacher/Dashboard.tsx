@@ -5,6 +5,7 @@ import Custombreadcrumb from "../../components/CustomBreadcrumb";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { createRequest, fetchTeacherSchedule } from "../../redux/teacherSlice";
 import dayjs from "dayjs";
+import { Link } from "react-router-dom";
 
 const { Content } = Layout;
 const { Text } = Typography;
@@ -49,18 +50,23 @@ const TeacherDashboard = () => {
                     key={subclass.shift + " " + subclass.room}
                     className="flex flex-col justify-center items-center p-4 bg-green-400 rounded-md text-white"
                   >
-                    <div>
-                      {subclass.class} - {subclass.room}
-                    </div>
-                    <div>Shift {subclass.shift}</div>
-                    <Popconfirm
-                      title="Request delete this schedule?"
-                      onConfirm={() =>
-                        requestDelete({ classId: subclass._id, label: item.label })
-                      }
-                    >
-                      <Button className="bg-white mt-2">-Delete-</Button>
-                    </Popconfirm>
+                    <Link to={`/teacher/class/${subclass.classId}/attendance`}>
+                      <div>
+                        {subclass.class} - {subclass.room}
+                      </div>
+                      <div>Shift {subclass.shift}</div>
+                      <Popconfirm
+                        title="Request delete this schedule?"
+                        onConfirm={() =>
+                          requestDelete({
+                            classId: subclass._id,
+                            label: item.label,
+                          })
+                        }
+                      >
+                        <Button className="bg-white mt-2">-Delete-</Button>
+                      </Popconfirm>
+                    </Link>
                   </div>
                 ))}
               </div>

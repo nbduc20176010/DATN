@@ -78,6 +78,18 @@ export const createRequest = createAsyncThunk(
   }
 );
 
+export const submitAttendance = createAsyncThunk(
+  "teacher/submitAttendance",
+  async ({ id, values, token }: any) => {
+    const res = await api.post(`/teacher/attendance/${id}`, values, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  }
+);
+
 const teacherSlice = createSlice({
   name: "schedules",
   initialState: {
@@ -117,6 +129,9 @@ const teacherSlice = createSlice({
         message: "Create request successful!",
         duration: 2,
       });
+    });
+    builder.addCase(submitAttendance.fulfilled, (state, action) => {
+      state.classDetail = action.payload;
     });
   },
 });

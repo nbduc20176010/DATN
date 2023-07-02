@@ -183,11 +183,40 @@ export const fetchRequests = createAsyncThunk(
 export const declineRequest = createAsyncThunk(
   "admin/declineRequest",
   async ({ id, token }: any) => {
-    const res = await api.put(`/admin/decline/${id}`, {
+    const res = await api.put(`/admin/decline/${id}`, null, {
       headers: {
         authorization: `Bearer ${token}`,
       },
     });
+    return res.data;
+  }
+);
+
+export const submitScore = createAsyncThunk(
+  "admin/submitScore",
+  async ({ id, values, token }: any) => {
+    const res = await api.put(`admin/class/score/${id}`, values, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  }
+);
+
+export const approveStudentRequest = createAsyncThunk(
+  "admin/approveStudentRequest",
+  async ({ request, token }: any) => {
+    const { category, ...rest } = request;
+    const res = await api.put(
+      `/admin/approval/${request.category}/${request._id}`,
+      rest.body,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return res.data;
   }
 );
@@ -303,6 +332,20 @@ export const adminSlice = createSlice({
       );
       state.requests = newRequests;
       notification.warning({
+        message: `${action.payload.message}`,
+        description: `${action.payload.message}`,
+        duration: 2,
+      });
+    });
+    builder.addCase(submitScore.fulfilled, (state, action) => {
+      state.classDetail = action.payload;
+    });
+    builder.addCase(approveStudentRequest.fulfilled, (state, action) => {
+      const newRequests = state.requests.map((item) =>
+        item._id === action.payload.request._id ? action.payload.request : item
+      );
+      state.requests = newRequests;
+      notification.success({
         message: `${action.payload.message}`,
         description: `${action.payload.message}`,
         duration: 2,
